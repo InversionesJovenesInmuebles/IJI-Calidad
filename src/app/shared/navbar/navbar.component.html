@@ -1,0 +1,114 @@
+<nav class="bg-[#012169] p-4">
+  <div class="flex items-center justify-between">
+
+    <!-- Logo -->
+    <div class="flex-shrink-0">
+      <a routerLink="/index">
+        <img class="h-10" src="img/logo.png" alt="Logo de la empresa">
+      </a>
+    </div>
+
+    <!-- Botón del menú desplegable (hamburger menu) -->
+    <div class="block md:hidden">
+      <button (click)="toggleMenu()" class="text-[#FD924E] focus:outline-none">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Opciones del menú para pantallas grandes -->
+    <div class="hidden md:flex space-x-6 text-[#FD924E]">
+      <ng-container *ngIf="role === 'Guest'">
+        <a class="flex items-center hover:underline" routerLink="/properties">
+          <img class="h-6 w-6 mr-2" src="icons/properties.png" alt="Propiedades">
+          <p>Propiedades</p>
+        </a>
+        <a class="flex items-center hover:underline" routerLink="/login">
+          <img class="h-6 w-6 mr-2" src="icons/login.png" alt="Iniciar Sesion">
+          <p>Iniciar Sesion</p>
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="role === 'Cliente'">
+        <a class="flex items-center hover:underline" routerLink="/properties">
+          <img class="h-6 w-6 mr-2" src="icons/properties.png" alt="Propiedades">
+          <p>Propiedades</p>
+        </a>
+        <a class="flex items-center hover:underline" (click)="logout()">
+          <img class="h-6 w-6 mr-2" src="icons/user.png" alt="Cerrar Sesion">
+          <p>Cerrar Sesion</p>
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="role === 'Agente'">
+        <a class="flex items-center hover:underline" routerLink="/manageProperties">
+          <img class="h-6 w-6 mr-2" src="icons/manageProperties.png" alt="Gestionar Propiedades">
+          <p>Gestionar Propiedades</p>
+        </a>
+        <a class="flex items-center hover:underline" (click)="logout()">
+          <img class="h-6 w-6 mr-2" src="icons/user.png" alt="Cerrar Sesion">
+          <p>Cerrar Sesion</p>
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="role === 'Inmobiliaria'">
+        <a class="flex items-center hover:underline" routerLink="/manageAgent">
+          <img class="h-6 w-6 mr-2" src="icons/addAgent.png" alt="Agregar Agente">
+          <p>Gestionar Agentes</p>
+        </a>
+        <a class="flex items-center hover:underline" (click)="logout()">
+          <img class="h-6 w-6 mr-2" src="icons/user.png" alt="Cerrar Sesion">
+          <p>Cerrar Sesion</p>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Submenú desplegable en pantallas pequeñas -->
+  <div [ngClass]="{'hidden': !menuOpen}" class="md:hidden flex flex-col mt-4 space-y-4 text-[#FD924E]">
+    <ng-container *ngIf="role === 'Guest'">
+      <a class="flex items-center hover:underline" routerLink="/properties">
+        <img class="h-6 w-6 mr-2" src="icons/properties.png" alt="Propiedades">
+        <p>Propiedades</p>
+      </a>
+      <a class="flex items-center hover:underline" routerLink="/login">
+        <img class="h-6 w-6 mr-2" src="icons/login.png" alt="Iniciar Sesion">
+        <p>Iniciar Sesion</p>
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="role === 'Cliente'">
+      <a class="flex items-center hover:underline" routerLink="/properties">
+        <img class="h-6 w-6 mr-2" src="icons/properties.png" alt="Propiedades">
+        <p>Propiedades</p>
+      </a>
+      <a class="flex items-center hover:underline" (click)="logout()">
+        <img class="h-6 w-6 mr-2" src="icons/user.png" alt="Cerrar Sesion">
+        <p>Cerrar Sesion</p>
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="role === 'Agente'">
+      <a class="flex items-center hover:underline" routerLink="/manageProperties">
+        <img class="h-6 w-6 mr-2" src="icons/manageProperties.png" alt="Gestionar Propiedades">
+        <p>Gestionar Propiedades</p>
+      </a>
+      <a class="flex items-center hover:underline" (click)="logout()">
+        <img class="h-6 w-6 mr-2" src="icons/user.png" alt="Cerrar Sesion">
+        <p>Cerrar Sesion</p>
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="role === 'Inmobiliaria'">
+      <a class="flex items-center hover:underline" routerLink="/manageAgent">
+        <img class="h-6 w-6 mr-2" src="icons/addAgent.png" alt="Agregar Agente">
+        <p>Gestionar Agentes</p>
+      </a>
+      <a class="flex items-center hover:underline" (click)="logout()">
+        <img class="h-6 w-6 mr-2" src="icons/user.png" alt="Cerrar Sesion">
+        <p>Cerrar Sesion</p>
+      </a>
+    </ng-container>
+  </div>
+</nav>

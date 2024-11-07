@@ -1,0 +1,110 @@
+<div class="w-full">
+  <!-- Contenedor de Imágenes -->
+  <div class="flex flex-col md:flex-row bg-gray-300 justify-around p-4 mb-4">
+    <!-- Imagen Principal -->
+    <div class="w-full md:w-3/4 flex justify-center">
+      <img *ngIf="fotos.length > 0" [src]="fotos[0]" alt="Imagen principal" class="w-full h-auto object-cover rounded-md">
+    </div>
+    <!-- Imágenes Secundarias -->
+    <div class="w-full md:w-1/4 flex flex-col gap-2 mt-4 md:mt-0">
+      <img *ngFor="let foto of fotos.slice(1)" [src]="foto" alt="Imagen secundaria" class="w-full h-auto object-cover rounded-md">
+    </div>
+  </div>
+
+  <!-- Tipo de Propiedad y Favoritos -->
+  <div class="flex justify-between items-center">
+    <div class="bg-orange-500 text-white font-bold text-2xl py-1 px-3 rounded-lg">
+      <p>Departamento</p>
+    </div>
+    <div class="flex items-center bg-orange-500 text-white text-xl py-1 px-3 rounded-lg cursor-pointer">
+      <img src="icons/corazon.png" alt="favoritos" class="w-6 h-6 mr-2">
+      <p>Añadir a Favoritos</p>
+    </div>
+  </div>
+
+  <!-- Ubicación y Costo -->
+  <div class="flex flex-col md:flex-row justify-between mt-4">
+    <div class="mb-4 md:mb-0">
+      <h2 class="text-xl font-semibold">Ubicación</h2>
+      <h5 class="text-lg">{{ propiedad?.direccion }}</h5>
+      <p class="text-base">{{ propiedad?.distrito }}, {{ propiedad?.provincia }}, {{ propiedad?.region }}</p>
+    </div>
+    <div class="flex gap-4">
+      <div class="bg-blue-900 text-white p-3 rounded-lg">
+        <h4 class="text-lg">Costo Total:</h4>
+        <p class="text-2xl">S/.{{ propiedad?.costoTotal }}</p>
+      </div>
+      <div class="bg-orange-500 text-white p-3 rounded-lg">
+        <h4 class="text-lg">Costo Inicial:</h4>
+        <p class="text-2xl">S/.{{ propiedad?.costoInicial }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción -->
+  <div class="mt-6">
+    <h2 class="text-xl font-semibold">Descripción</h2>
+    <p class="text-base">{{ propiedad?.descripcion }}</p>
+  </div>
+
+  <div class="w-full">
+    <h2 class="text-xl font-semibold mb-4">Especificaciones</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Columna 1 -->
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Área de Terreno:</p>
+        <p class="text-lg w-1/2">{{ propiedad?.areaTerreno }} m<sup>2</sup></p>
+      </div>
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Cochera:</p>
+        <p class="text-lg w-1/2">{{ propiedad?.cochera ? 'Sí' : 'No' }}</p>
+      </div>
+
+      <!-- Cantidad de Baños -->
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Cantidad de Baños:</p>
+        <p class="text-lg w-1/2 flex items-center">{{ propiedad?.cantBanos }} <img src="icons/bano.png" alt="Cantidad de Baños" class="w-5 h-5 ml-2"></p>
+      </div>
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Cantidad de Cocheras:</p>
+        <p class="text-lg w-1/2 flex items-center">{{ propiedad?.cantCochera }} <img src="icons/Cochera.png" alt="Cantidad de Cocheras" class="w-5 h-5 ml-2"></p>
+      </div>
+
+      <!-- Cantidad de Dormitorios -->
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Cantidad de Dormitorios:</p>
+        <p class="text-lg w-1/2 flex items-center">{{ propiedad?.cantDormitorios }} <img src="icons/habitacion.png" alt="Cantidad de Dormitorios" class="w-5 h-5 ml-2"></p>
+      </div>
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Piso:</p>
+        <p class="text-lg w-1/2">{{ propiedad?.pisos }}</p>
+      </div>
+
+      <!-- Ascensor -->
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Ascensor:</p>
+        <p class="text-lg w-1/2">{{ propiedad?.ascensor ? 'Sí' : 'No' }}</p>
+      </div>
+
+      <!-- Interior -->
+      <div class="flex items-center">
+        <p class="text-lg font-medium w-1/2">Interior:</p>
+        <p class="text-lg w-1/2">{{ propiedad?.interior }}</p>
+      </div>
+
+      <!-- Áreas Comunes -->
+      <div class="flex items-center md:col-span-2">
+        <p class="text-lg font-medium w-1/2">Áreas Comunes:</p>
+        <p class="text-lg font-semibold w-1/2">Otras Comodidades:</p>
+      </div>
+
+      <!-- Otras Comodidades -->
+      <div class="flex items-center md:col-span-2">
+        <p class="text-lg w-1/2">{{ propiedad?.areasComunesEspecificas }}</p>
+        <p class="text-lg w-1/2">{{ propiedad?.otrasComodidades }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+

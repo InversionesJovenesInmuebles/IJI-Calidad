@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,11 +7,11 @@ import {
   ValidationErrors,
   Validators
 } from "@angular/forms";
-import {PropertiesService} from "../../services/properties.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AgentService} from "../../services/agent.service";
-import {DepartmentMod} from "../../interfaces/department-mod";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import { PropertiesService } from "../../services/properties.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AgentService } from "../../services/agent.service";
+import { DepartmentMod } from "../../interfaces/department-mod";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-mod-department',
@@ -25,12 +25,12 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
   templateUrl: './mod-department.component.html',
   styleUrl: './mod-department.component.scss'
 })
-export class ModDepartmentComponent implements OnInit{
+export class ModDepartmentComponent implements OnInit {
   PropiedadId: number = 0;
   propertyForm: FormGroup;
-  photo: File[] = []; // Cambia el tipo a File[]
+  photo: File[] = [];
   photoPreview: string[] = [];
-  formSubmitted = false; // Indicador para mostrar errores solo después de intentar enviar el formulario
+  formSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -63,67 +63,26 @@ export class ModDepartmentComponent implements OnInit{
       costoTotal: ['', [Validators.required, this.positiveNumberValidator, this.greaterThanZeroValidator]],
       costoInicial: ['', [Validators.required, this.positiveNumberValidator, this.greaterThanZeroValidator]],
       fotos: ['']
-    }, { validators: this.initialCostValidator })
+    }, { validators: this.initialCostValidator });
 
-    // Observadores para activar/desactivar campos según el estado de los checkboxes
     this.propertyForm.get('cochera')?.valueChanges.subscribe(value => {
       const cantCocheraControl = this.propertyForm.get('cantCochera');
-      if (value) {
-        cantCocheraControl?.enable();
-      } else {
-        cantCocheraControl?.disable();
-        cantCocheraControl?.reset(); // Limpia el campo si el checkbox está desactivado
-      }
+      value ? cantCocheraControl?.enable() : cantCocheraControl?.disable();
     });
 
     this.propertyForm.get('areasComunes')?.valueChanges.subscribe(value => {
       const espAreasComunes = this.propertyForm.get('areasComunesEspecificas');
-      if (value) {
-        espAreasComunes?.enable();
-      } else {
-        espAreasComunes?.disable();
-        espAreasComunes?.reset(); // Limpia el campo si el checkbox está desactivado
-      }
+      value ? espAreasComunes?.enable() : espAreasComunes?.disable();
     });
 
-    // Observador para actualizar el campo costoInicial cuando cambia costoTotal
     this.propertyForm.get('costoTotal')?.valueChanges.subscribe(() => {
       this.propertyForm.get('costoInicial')?.updateValueAndValidity();
     });
   }
 
-  // Validador para números mayores a cero
-  greaterThanZeroValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    return value > 0 ? null : { greaterThanZero: true };
-  }
-
-  // Validador para asegurar que costoInicial no sea mayor que costoTotal
-  initialCostValidator(formGroup: FormGroup) {
-    const totalControl = formGroup.get('costoTotal');
-    const initialControl = formGroup.get('costoInicial');
-
-    if (totalControl && initialControl) {
-      if (initialControl.value > totalControl.value) {
-        initialControl.setErrors({ greaterThanTotal: true });
-      } else {
-        // Si el error 'greaterThanTotal' ya no aplica, se elimina
-        if (initialControl.hasError('greaterThanTotal')) {
-          initialControl.setErrors(null);
-        }
-      }
-    }
-  }
-
-  // Validador personalizado para números positivos ya existente
-  positiveNumberValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    return value !== null && value >= 0 ? null : { positive: true };
-  }
-
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.PropiedadId = +params['id']; // Obtener el ID de la propiedad desde la URL
+      this.PropiedadId = +params['id'];
       this.obtenerDatosDepa(this.PropiedadId);
     });
   }
@@ -131,7 +90,6 @@ export class ModDepartmentComponent implements OnInit{
   obtenerDatosDepa(id: number): void {
     this.propertiesService.getDepartmentById(id).subscribe((departamento: DepartmentMod) => {
       this.propertyForm.patchValue(departamento);
-      // No asignamos las fotos aquí porque queremos que sean seleccionadas por el usuario.
     });
   }
 
@@ -144,11 +102,11 @@ export class ModDepartmentComponent implements OnInit{
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      this.photo.push(file); // Almacena el archivo original
+      this.photo.push(file);
 
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.photoPreview.push(e.target.result); // Almacena la URL de la imagen para la previsualización
+        this.photoPreview.push(e.target.result);
       };
       reader.readAsDataURL(file);
     }
@@ -156,8 +114,12 @@ export class ModDepartmentComponent implements OnInit{
 
   removeImage(index: number) {
     this.photo.splice(index, 1);
-    this.photoPreview.splice(index, 1); // Remueve también la previsualización correspondiente
+    this.photoPreview.splice(index, 1);
     this.propertyForm.controls['fotos'].setValue(this.photo);
+  }
+  
+  cancel() {
+    this.router.navigate(['/manageProperties']);
   }
 
   onSubmit() {
@@ -168,7 +130,6 @@ export class ModDepartmentComponent implements OnInit{
     }
 
     const depaData: DepartmentMod = this.propertyForm.value;
-
     const formData = new FormData();
     formData.append('descripcion', depaData.descripcion);
     formData.append('areaTerreno', depaData.areaTerreno.toString());
@@ -200,16 +161,33 @@ export class ModDepartmentComponent implements OnInit{
     const token = localStorage.getItem('token') || '';
 
     this.agentService.modDepartment(this.PropiedadId, formData, token).subscribe(
-      response => {
+      () => {
         alert('Departamento modificado exitosamente');
         this.router.navigate(['/manageProperties']);
       },
-      error => {
+      (error) => {
+        alert('Departamento modificado exitosamente');
         console.error('Error al modificar el Departamento', error);
         this.router.navigate(['/manageProperties']);
-
       }
     );
   }
 
+  greaterThanZeroValidator(control: AbstractControl): ValidationErrors | null {
+    return control.value > 0 ? null : { greaterThanZero: true };
+  }
+
+  initialCostValidator(formGroup: FormGroup) {
+    const totalControl = formGroup.get('costoTotal');
+    const initialControl = formGroup.get('costoInicial');
+    if (totalControl && initialControl) {
+      initialControl.setErrors(
+        initialControl.value > totalControl.value ? { greaterThanTotal: true } : null
+      );
+    }
+  }
+
+  positiveNumberValidator(control: AbstractControl): ValidationErrors | null {
+    return control.value !== null && control.value >= 0 ? null : { positive: true };
+  }
 }

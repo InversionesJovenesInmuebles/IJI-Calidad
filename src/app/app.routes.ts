@@ -27,64 +27,64 @@ export const routes: Routes = [
     path: 'addAgent',
     title: 'Agregar Agente',
     component: AddAgentComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Inmobiliaria'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Inmobiliaria'] },
   },
 
   {
     path: 'modAgent/:id',
     title: 'Modificar Agente',
     component: ModAgentComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Inmobiliaria'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Inmobiliaria'] },
   },
 
   {
     path: 'manageAgent',
     title: 'Gestionar Agente',
     component: ManageAgentComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Inmobiliaria'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Inmobiliaria'] },
   },
 
   {
     path: 'manageProperties',
     title: 'Gestionar Propiedades',
     component: ManagePropertiesComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Agente'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Agente'] },
   },
 
   {
     path: 'addHouse',
     title: 'Agregar Casa',
     component: AddHouseComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Agente'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Agente'] },
   },
 
   {
     path: 'addDepartment',
     title: 'Agregar Departamento',
     component: AddDepartmentComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Agente'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Agente'] },
   },
 
   {
     path: 'modHouse/:id',
     title: 'Modificar Casa',
     component: ModHouseComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Agente'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Agente'] },
   },
 
   {
     path: 'modDepartment/:id',
     title: 'Modificar Departamento',
     component: ModDepartmentComponent,
-    // canActivate: [authzGuard],
-    // data: { expectedRoles: ['Agente'] },
+    canActivate: [authzGuard],
+    data: { expectedRoles: ['Agente'] },
   },
 
   { path: 'properties', title: 'Propiedades', component: PropertiesComponent },

@@ -15,4 +15,3 @@ export const authzGuard: CanActivateFn = (route, state): boolean | UrlTree => {
     return router.parseUrl('/page-not-found');
   }
 };
-

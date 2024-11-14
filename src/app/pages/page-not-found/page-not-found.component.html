@@ -1,0 +1,17 @@
+<div class="flex flex-col md:flex-row items-center justify-center h-svh min-h-screen w-full">
+
+  <!-- Sección del lado izquierdo -->
+  <div class="text-left w-full md:w-1/2">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4">Página no encontrada</h1>
+    <p class="text-base md:text-lg mb-6">Lo sentimos, no pudimos encontrar la página que estás buscando.</p>
+    <button class="bg-[#d27b42] text-white py-2 px-6 rounded-lg font-bold shadow-lg hover:shadow-xl transition duration-300"
+            (click)="goBack()">
+      Regresar a la página anterior
+    </button>
+  </div>
+
+  <!-- Imagen del lado derecho -->
+  <div class="w-full md:w-1/2 flex justify-center items-center">
+    <img src="img/not-found.svg" alt="Imagen no encontrada" class="w-3/4 md:w-2/5 h-auto object-contain">
+  </div>
+</div>

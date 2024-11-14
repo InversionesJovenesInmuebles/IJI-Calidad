@@ -1,0 +1,94 @@
+<div class="flex flex-col-reverse lg:flex-row items-center justify-center h-auto max-w-full mx-auto">
+  <div class="w-full lg:w-1/2 flex flex-col items-center order-1 lg:order-none">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-full max-w-lg p-6 space-y-6 bg-white shadow-lg rounded-lg">
+      <h1 class="text-4xl font-bold text-center text-black">Registrarse</h1>
+
+      <!-- Nombre -->
+      <div class="flex flex-col">
+        <label class="text-lg mb-1">Nombre:</label>
+        <input formControlName="nombre" type="text" id="nombre" class="border-2 p-2 rounded-md focus:outline-none"
+               [ngClass]="{'border-red-500': registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched}">
+        <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched" class="text-sm text-red-500">
+          El nombre es obligatorio (máximo 50 caracteres).
+        </div>
+      </div>
+
+      <!-- Apellido -->
+      <div class="flex flex-col">
+        <label class="text-lg mb-1">Apellido:</label>
+        <input formControlName="apellido" type="text" id="apellido" class="border-2 p-2 rounded-md focus:outline-none"
+               [ngClass]="{'border-red-500': registerForm.get('apellido')?.invalid && registerForm.get('apellido')?.touched}">
+        <div *ngIf="registerForm.get('apellido')?.invalid && registerForm.get('apellido')?.touched" class="text-sm text-red-500">
+          El apellido es obligatorio (máximo 50 caracteres).
+        </div>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="flex flex-col">
+        <label class="text-lg mb-1">Teléfono:</label>
+        <input formControlName="telefono" type="number" id="telefono" class="border-2 p-2 rounded-md focus:outline-none"
+               [ngClass]="{'border-red-500': registerForm.get('telefono')?.invalid && registerForm.get('telefono')?.touched}">
+        <div *ngIf="registerForm.get('telefono')?.invalid && registerForm.get('telefono')?.touched" class="text-sm text-red-500">
+          El teléfono debe tener 9 dígitos y empezar por 9.
+        </div>
+      </div>
+
+      <!-- DNI -->
+      <div class="flex flex-col">
+        <label class="text-lg mb-1">DNI:</label>
+        <input formControlName="dni" type="number" id="dni" class="border-2 p-2 rounded-md focus:outline-none"
+               [ngClass]="{'border-red-500': registerForm.get('dni')?.invalid && registerForm.get('dni')?.touched}">
+        <div *ngIf="registerForm.get('dni')?.invalid && registerForm.get('dni')?.touched" class="text-sm text-red-500">
+          El DNI debe tener 8 dígitos.
+        </div>
+      </div>
+
+      <!-- Correo -->
+      <div class="flex flex-col">
+        <label class="text-lg mb-1">Correo:</label>
+        <input formControlName="correo" type="email" id="correo" class="border-2 p-2 rounded-md focus:outline-none"
+               [ngClass]="{'border-red-500': registerForm.get('correo')?.invalid && registerForm.get('correo')?.touched}">
+
+        <!-- Mostrar diferentes mensajes de error según el tipo de error -->
+        <div *ngIf="registerForm.get('correo')?.hasError('invalidEmail') && registerForm.get('correo')?.touched" class="text-sm text-red-500">
+          El correo debe tener un "&#64;" y un dominio válido (.com, .edu, etc.).
+        </div>
+        <div *ngIf="registerForm.get('correo')?.hasError('maxlength') && registerForm.get('correo')?.touched" class="text-sm text-red-500">
+          El correo no puede exceder los 50 caracteres.
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="flex flex-col">
+        <label class="text-lg mb-1">Contraseña:</label>
+        <input formControlName="contrasena" type="password" id="contrasena" class="border-2 p-2 rounded-md focus:outline-none"
+               [ngClass]="{'border-red-500': registerForm.get('contrasena')?.invalid && registerForm.get('contrasena')?.touched}">
+        <div *ngIf="registerForm.get('contrasena')?.invalid && registerForm.get('contrasena')?.touched" class="text-sm text-red-500">
+          La contraseña debe tener entre 8 y 16 caracteres, con al menos una mayúscula, una minúscula, un numero y un carácter especial permitido (&#64;, $, +, *, -, /, #, &, !, ¡, _, ?, ¿, °, |).
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-between space-x-4">
+
+        <button class="bg-blue-900 text-white py-2 px-4 rounded-md w-full lg:w-1/2">Cancelar</button>
+
+        <button type="submit" class="bg-orange-500 text-black py-2 px-4 rounded-md w-full lg:w-1/2 transition-colors duration-200 ease-in-out"
+                [disabled]="registerForm.invalid"
+                [ngClass]="{'bg-orange-400 text-gray-700': registerForm.invalid, 'hover:bg-orange-600 text-white': !registerForm.invalid}">
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Imagen -->
+  <div class="w-full lg:w-1/2 h-96 lg:h-auto order-none lg:order-2">
+    <img src="img/registerHouse.png" class="object-cover w-full h-full" alt="Imagen Casa">
+  </div>
+
+  <!-- Alerta visual -->
+  <div *ngIf="errorMessage" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white py-2 px-4 rounded-md shadow-lg text-center z-50">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<h1 class="text-4xl mt-4 mb-5">Agregar Agente</h1>
+<form [formGroup]="agentForm" (ngSubmit)="onSubmit()" class="add-agent-form mx-auto p-4 flex flex-col justify-center items-center w-full lg:w-[820px]">
+  <section class="flex flex-col lg:flex-row gap-5 mb-2 w-full">
+    <div class="form-group w-full lg:w-1/2">
+      <label for="nombre" class="block mb-1 text-2xl">Nombre:</label>
+      <input formControlName="nombre" type="text" id="nombre" class="bg-gray-200 text-[#012169] border-b-2 border-[#012169] text-xl w-full"
+             [ngClass]="{'border-red-500': agentForm.get('nombre')?.invalid && agentForm.get('nombre')?.touched}">
+      <div *ngIf="agentForm.get('nombre')?.invalid && agentForm.get('nombre')?.touched" class="text-sm text-red-500">
+        El nombre es obligatorio y no puede contener caracteres especiales (máximo 50 caracteres).
+      </div>
+    </div>
+    <div class="form-group w-full lg:w-1/2">
+      <label for="apellidos" class="block mb-1 text-2xl">Apellidos:</label>
+      <input formControlName="apellido" type="text" id="apellidos" class="bg-gray-200 text-[#012169] border-b-2 border-[#012169] text-xl w-full"
+             [ngClass]="{'border-red-500': agentForm.get('apellido')?.invalid && agentForm.get('apellido')?.touched}">
+      <div *ngIf="agentForm.get('apellido')?.invalid && agentForm.get('apellido')?.touched" class="text-sm text-red-500">
+        El apellido es obligatorio y no puede contener caracteres especiales (máximo 50 caracteres).
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col lg:flex-row gap-5 mb-2 w-full">
+    <div class="form-group w-full lg:w-1/2">
+      <label for="dni" class="block mb-1 text-2xl">DNI:</label>
+      <input formControlName="dni" type="text" id="dni" class="bg-gray-200 text-[#012169] border-b-2 border-[#012169] text-xl w-full"
+             [ngClass]="{'border-red-500': agentForm.get('dni')?.invalid && agentForm.get('dni')?.touched}">
+      <div *ngIf="agentForm.get('dni')?.invalid && agentForm.get('dni')?.touched" class="text-sm text-red-500">
+        El DNI debe tener exactamente 8 dígitos.
+      </div>
+    </div>
+    <div class="form-group w-full lg:w-1/2">
+      <label for="telefono" class="block mb-1 text-2xl">Teléfono:</label>
+      <input formControlName="telefono" type="text" id="telefono" class="bg-gray-200 text-[#012169] border-b-2 border-[#012169] text-xl w-full"
+             [ngClass]="{'border-red-500': agentForm.get('telefono')?.invalid && agentForm.get('telefono')?.touched}">
+      <div *ngIf="agentForm.get('telefono')?.invalid && agentForm.get('telefono')?.touched" class="text-sm text-red-500">
+        El teléfono debe tener 9 dígitos y comenzar con el número 9.
+      </div>
+    </div>
+  </section>
+
+  <section class="flex gap-5 mb-2 w-full">
+    <div class="form-group-exception w-full">
+      <label for="nombreInmobiliaria" class="block mb-1 text-2xl">Inmobiliaria:</label>
+      <input formControlName="nombreInmobiliaria" type="text" id="nombreInmobiliaria" class="bg-gray-200 text-[#012169] border-b-2 border-[#012169] text-xl w-full" >
+      <div *ngIf="agentForm.get('nombreInmobiliaria')?.invalid && agentForm.get('nombreInmobiliaria')?.touched" class="text-sm text-red-500">
+        La inmobiliaria es obligatoria y solo puede contener letras y números (máximo 50 caracteres).
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col lg:flex-row gap-5 mb-2 w-full">
+    <div class="form-group w-full lg:w-1/2">
+      <label for="correo" class="block mb-1 text-2xl">Correo:</label>
+      <input formControlName="correo" type="email" id="correo" class="bg-gray-200 text-[#012169] border-b-2 border-[#012169] text-xl w-full"
+             [ngClass]="{'border-red-500': agentForm.get('correo')?.invalid && agentForm.get('correo')?.touched}">
+      <div *ngIf="agentForm.get('correo')?.hasError('invalidEmail') && agentForm.get('correo')?.touched" class="text-sm text-red-500">
+        El correo debe tener un "&#64;" y un dominio válido (.com, .pe, etc.).
+      </div>
+    </div>
+    <div class="form-group w-full lg:w-1/2">
+      <label for="contrasena" class="block mb-1 text-2xl">Contraseña:</label>
+      <input formControlName="contrasena" type="password" id="contrasena" class="bg-gray-200 text-[#012169] border-b-2 border-[#012169] text-xl w-full"
+             [ngClass]="{'border-red-500': agentForm.get('contrasena')?.invalid && agentForm.get('contrasena')?.touched}">
+      <div *ngIf="agentForm.get('contrasena')?.invalid && agentForm.get('contrasena')?.touched" class="text-sm text-red-500">
+        La contraseña debe tener entre 8 y 16 caracteres, con al menos una mayúscula, una minúscula, un numero y un carácter especial permitido (&#64;, $, +, *, -, /, #, &, !, ¡, _, ?, ¿, °, |).
+      </div>
+    </div>
+  </section>
+
+  <div class="form-actions flex flex-row-reverse justify-between w-full mt-4">
+    <button type="submit" class="add-button py-2 px-6 lg:px-24 bg-[#012169] text-white text-xl rounded-md border border-[#012169] transition duration-200"
+            [disabled]="agentForm.invalid" [ngClass]="{'hover:bg-[#FD924E]': !agentForm.invalid}">
+      Agregar
+    </button>
+    <button type="button" class="cancel-button py-2 px-6 lg:px-24 bg-black text-white text-xl rounded-md border border-black transition duration-200 hover:bg-white hover:text-black"
+            routerLink="/manageAgent" >
+      Cancelar
+    </button>
+  </div>
+
+  <!-- Alerta visual de error -->
+  <div *ngIf="errorMessage" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white py-2 px-4 rounded-md shadow-lg text-center z-50">
+    {{ errorMessage }}
+  </div>
+</form>

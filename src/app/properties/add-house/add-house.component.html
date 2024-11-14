@@ -1,0 +1,317 @@
+<h1 class="text-3xl font-bold mb-6">Agregar Casa</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="propertyForm" class="space-y-10">
+
+  <!-- Sección 1: Especificaciones -->
+  <section class="space-y-6">
+    <h2 class="text-2xl font-semibold mb-4">Especificaciones</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Descripción -->
+      <div class="col-span-1 md:col-span-2">
+        <label for="descripcion" class="block text-lg font-medium mb-1">Descripción:*</label>
+        <textarea id="descripcion" formControlName="descripcion" maxlength="250" rows="4"
+                  class="w-full p-3 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none"
+                  placeholder="Escriba una breve descripción (máximo 250 caracteres)"></textarea>
+        <div *ngIf="propertyForm.get('descripcion')?.invalid && propertyForm.get('descripcion')?.touched"
+             class="text-red-500 text-sm">La descripción es obligatoria y no debe exceder los 250 caracteres.</div>
+      </div>
+
+      <!-- Tipo de Propiedad (Predeterminado) -->
+      <div>
+        <label for="tipoPropiedad" class="block text-lg font-medium mb-1">Tipo de Propiedad:*</label>
+        <input type="text" id="tipoPropiedad" formControlName="tipoPropiedad" value="Casa" readonly
+               class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+      </div>
+
+      <!-- Área de Terreno -->
+      <div>
+        <label for="AreaTerreno" class="block text-lg font-medium mb-1">Área de Terreno (m²):*</label>
+        <input type="number" id="AreaTerreno" formControlName="areaTerreno" min="0" placeholder="Ej: 300"
+               class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('areaTerreno')?.invalid && propertyForm.get('areaTerreno')?.touched"
+             class="text-red-500 text-sm">Ingrese un número válido para el área de terreno.</div>
+      </div>
+
+      <!-- Cantidad de Baños -->
+      <div>
+        <label for="banos" class="block text-lg font-medium mb-1">Cantidad de Baños:*</label>
+        <input type="number" id="banos" formControlName="cantBanos" min="0" placeholder="Ej: 2"
+               class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('cantBanos')?.invalid && propertyForm.get('cantBanos')?.touched"
+             class="text-red-500 text-sm">Ingrese un número válido para la cantidad de baños.</div>
+      </div>
+
+      <!-- Cantidad de Habitaciones -->
+      <div>
+        <label for="dormitorios" class="block text-lg font-medium mb-1">Cantidad de Habitaciones:*</label>
+        <input type="number" id="dormitorios" formControlName="cantDormitorios" min="0" placeholder="Ej: 3"
+               class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('cantDormitorios')?.invalid && propertyForm.get('cantDormitorios')?.touched"
+             class="text-red-500 text-sm">Ingrese un número válido para la cantidad de habitaciones.</div>
+      </div>
+
+      <!-- Cochera -->
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="cochera" formControlName="cochera" class="w-6 h-6 bg-gray-200 border-blue-900 rounded focus:ring-blue-900">
+        <label for="cochera" class="text-lg font-medium">¿Tiene Cochera?</label>
+      </div>
+
+      <!-- Cantidad de Cocheras -->
+      <div>
+        <label for="cantCocheras" class="block text-lg font-medium mb-1">Cantidad de Cocheras:</label>
+        <input type="number" id="cantCocheras" formControlName="cantCochera" min="0" placeholder="Ej: 1"
+               class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('cantCochera')?.invalid && propertyForm.get('cantCochera')?.touched"
+             class="text-red-500 text-sm">Ingrese un número válido para la cantidad de cocheras.</div>
+      </div>
+
+      <!-- Cantidad de Pisos -->
+      <div>
+        <label for="cantPisos" class="block text-lg font-medium mb-1">Cantidad de Pisos:*</label>
+        <input type="number" id="cantPisos" formControlName="cantPisos" min="0" placeholder="Ej: 2"
+               class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('cantPisos')?.invalid && propertyForm.get('cantPisos')?.touched"
+             class="text-red-500 text-sm">Ingrese un número válido para la cantidad de pisos.</div>
+      </div>
+      <div>
+        <!-- SEPARADOR -->
+      </div>
+
+      <!-- Jardín y Área del Jardín -->
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="jardin" formControlName="jardin" class="w-6 h-6 bg-gray-200 border-blue-900 rounded focus:ring-blue-900">
+        <label for="jardin" class="text-lg font-medium">¿Tiene Jardín?</label>
+      </div>
+      <!-- Área del Jardín -->
+      <div>
+        <label for="areaJardin" class="block text-lg font-medium mb-1">Área del Jardín (m²):</label>
+        <input type="number" id="areaJardin" formControlName="areaJardin" min="0" placeholder="Ej: 50"
+               class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('areaJardin')?.invalid && propertyForm.get('areaJardin')?.touched"
+             class="text-red-500 text-sm">Ingrese un número válido para el área del jardín.</div>
+      </div>
+
+      <!-- Ático -->
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="atico" formControlName="atico" class="w-6 h-6 bg-gray-200 border-blue-900 rounded focus:ring-blue-900">
+        <label for="atico" class="text-lg font-medium">¿Tiene Ático?</label>
+      </div>
+
+      <!-- Sótano -->
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="sotano" formControlName="sotano" class="w-6 h-6 bg-gray-200 border-blue-900 rounded focus:ring-blue-900">
+        <label for="sotano" class="text-lg font-medium">¿Tiene Sótano?</label>
+      </div>
+
+      <!-- Otras comodidades -->
+      <div class="col-span-1 md:col-span-2">
+        <label for="otrasComodidades" class="block text-lg font-medium mb-1">Otras comodidades:</label>
+        <textarea id="otrasComodidades" formControlName="otrasComodidades" maxlength="250" rows="3"
+                  class="w-full p-3 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none"
+                  placeholder="Especifique otras comodidades (máximo 250 caracteres)"></textarea>
+        <div *ngIf="propertyForm.get('otrasComodidades')?.invalid && propertyForm.get('otrasComodidades')?.touched"
+             class="text-red-500 text-sm">No debe exceder los 250 caracteres.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Sección 2: Dirección -->
+  <section class="space-y-6">
+    <h2 class="text-2xl font-semibold mb-4">Dirección</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- País -->
+      <div>
+        <label for="pais" class="block text-lg font-medium mb-1">País:*</label>
+        <input id="pais" formControlName="pais" maxlength="50" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('pais')?.invalid && propertyForm.get('pais')?.touched" class="text-red-500 text-sm">
+          Ingrese un nombre válido para el país, sin números ni caracteres especiales.
+        </div>
+      </div>
+
+      <!-- Región -->
+      <div>
+        <label for="region" class="block text-lg font-medium mb-1">Región:*</label>
+        <input id="region" formControlName="region" maxlength="50" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('region')?.invalid && propertyForm.get('region')?.touched" class="text-red-500 text-sm">
+          Ingrese un nombre válido para la región, sin números ni caracteres especiales.
+        </div>
+      </div>
+
+      <!-- Provincia -->
+      <div>
+        <label for="provincia" class="block text-lg font-medium mb-1">Provincia:*</label>
+        <input id="provincia" formControlName="provincia" maxlength="50" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('provincia')?.invalid && propertyForm.get('provincia')?.touched" class="text-red-500 text-sm">
+          Ingrese un nombre válido para la provincia, sin números ni caracteres especiales.
+        </div>
+      </div>
+
+      <!-- Distrito -->
+      <div>
+        <label for="distrito" class="block text-lg font-medium mb-1">Distrito:*</label>
+        <input id="distrito" formControlName="distrito" maxlength="50" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('distrito')?.invalid && propertyForm.get('distrito')?.touched" class="text-red-500 text-sm">
+          Ingrese un nombre válido para el distrito, sin números ni caracteres especiales.
+        </div>
+      </div>
+
+      <!-- Tipo -->
+      <div>
+        <label for="tipo" class="block text-lg font-medium mb-1">Tipo:*</label>
+        <select id="tipo" formControlName="tipo" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+          <option value="" disabled>Seleccione una opción</option>
+          <option value="Calle">Calle</option>
+          <option value="Jiron">Jiron</option>
+          <option value="Avenida">Avenida</option>
+          <option value="Prolongacion">Prolongacion</option>
+        </select>
+        <div *ngIf="propertyForm.get('tipo')?.invalid && propertyForm.get('tipo')?.touched" class="text-red-500 text-sm">
+          Seleccione un tipo de vía.
+        </div>
+      </div>
+
+      <!-- Nombre -->
+      <div>
+        <label for="nombre" class="block text-lg font-medium mb-1">Nombre:*</label>
+        <input id="nombre" formControlName="nombre" maxlength="100" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('nombre')?.invalid && propertyForm.get('nombre')?.touched" class="text-red-500 text-sm">
+          El nombre no debe exceder 100 caracteres.
+        </div>
+      </div>
+
+      <!-- Manzana -->
+      <div>
+        <label for="manzana" class="block text-lg font-medium mb-1">Manzana:</label>
+        <input id="manzana" formControlName="manzana" maxlength="10" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('manzana')?.hasError('required') && propertyForm.get('manzana')?.touched" class="text-red-500 text-sm">
+          El campo manzana es obligatorio.
+        </div>
+        <div *ngIf="propertyForm.get('manzana')?.hasError('pattern') && propertyForm.get('manzana')?.touched" class="text-red-500 text-sm">
+          La manzana solo debe contener hasta 10 caracteres alfanuméricos.
+        </div>
+      </div>
+
+      <!-- Lote -->
+      <div>
+        <label for="lote" class="block text-lg font-medium mb-1">Lote:</label>
+        <input type="number" id="lote" formControlName="lote" min="0" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('lote')?.invalid && propertyForm.get('lote')?.touched" class="text-red-500 text-sm">
+          Ingrese un número válido para el lote.
+        </div>
+      </div>
+
+
+      <!-- Referencia -->
+      <div>
+        <label for="referencia" class="block text-lg font-medium mb-1">Referencia:</label>
+        <input id="referencia" formControlName="referencia" maxlength="100" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('referencia')?.invalid && propertyForm.get('referencia')?.touched" class="text-red-500 text-sm">
+          La referencia no debe contener caracteres especiales y debe ser menor a 100 caracteres.
+        </div>
+      </div>
+
+      <!-- Latitud -->
+      <div>
+        <label for="latitud" class="block text-lg font-medium mb-1">Latitud:*</label>
+        <input type="number" id="latitud" formControlName="latitud" step="0.0001" placeholder="Ej: 1.1111" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('latitud')?.hasError('required') && propertyForm.get('latitud')?.touched" class="text-red-500 text-sm">
+          La latitud es obligatoria.
+        </div>
+        <div *ngIf="propertyForm.get('latitud')?.hasError('pattern') && propertyForm.get('latitud')?.touched" class="text-red-500 text-sm">
+          Ingrese un valor de latitud válido con hasta 4 decimales.
+        </div>
+      </div>
+
+      <!-- Longitud -->
+      <div>
+        <label for="longitud" class="block text-lg font-medium mb-1">Longitud:*</label>
+        <input type="number" id="longitud" formControlName="longitud" step="0.0001" placeholder="Ej: 1.1111" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none">
+        <div *ngIf="propertyForm.get('longitud')?.hasError('required') && propertyForm.get('longitud')?.touched" class="text-red-500 text-sm">
+          La longitud es obligatoria.
+        </div>
+        <div *ngIf="propertyForm.get('longitud')?.hasError('pattern') && propertyForm.get('longitud')?.touched" class="text-red-500 text-sm">
+          Ingrese un valor de longitud válido con hasta 4 decimales.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Sección 3: Costos -->
+  <section class="space-y-6">
+    <h2 class="text-2xl font-semibold mb-4">Costos</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Costo Total -->
+      <div>
+        <label for="costoTotal" class="block text-lg font-medium mb-1">Costo Total (S/):*</label>
+        <input type="number" id="costoTotal" formControlName="costoTotal" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none" placeholder="S/. 999 999">
+        <div *ngIf="propertyForm.get('costoTotal')?.hasError('required') && propertyForm.get('costoTotal')?.touched" class="text-red-500 text-sm">
+          El costo total es obligatorio.
+        </div>
+        <div *ngIf="propertyForm.get('costoTotal')?.hasError('greaterThanZero') && propertyForm.get('costoTotal')?.touched" class="text-red-500 text-sm">
+          El costo total debe ser mayor a cero.
+        </div>
+      </div>
+
+      <!-- Costo Inicial -->
+      <div>
+        <label for="costoInicial" class="block text-lg font-medium mb-1">Costo Inicial (S/):*</label>
+        <input type="number" id="costoInicial" formControlName="costoInicial" class="w-full p-2 bg-gray-200 border-b-2 border-blue-900 text-blue-900 rounded-md focus:outline-none" placeholder="S/. 99 999">
+        <div *ngIf="propertyForm.get('costoInicial')?.hasError('required') && propertyForm.get('costoInicial')?.touched" class="text-red-500 text-sm">
+          El costo inicial es obligatorio.
+        </div>
+        <div *ngIf="propertyForm.get('costoInicial')?.hasError('greaterThanZero') && propertyForm.get('costoInicial')?.touched" class="text-red-500 text-sm">
+          El costo inicial debe ser mayor a cero.
+        </div>
+        <div *ngIf="propertyForm.get('costoInicial')?.hasError('greaterThanTotal') && propertyForm.get('costoInicial')?.touched" class="text-red-500 text-sm">
+          El costo inicial no puede ser mayor que el costo total.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Sección 4: Imágenes -->
+  <section class="space-y-6">
+    <h2 class="text-2xl font-semibold mb-4">Imágenes</h2>
+    <p class="text-blue-900 font-medium">La primera imagen será la imagen principal.</p>
+    <div class="flex flex-wrap gap-4">
+      <div class="flex flex-col items-center justify-center w-64 h-64 bg-gray-300 border-2 border-gray-500 rounded-lg cursor-pointer"
+           (click)="fileInput.click()">
+        <input #fileInput type="file" (change)="onFileSelected($event)" hidden accept="image/*" multiple>
+        <img src="icons/agregarImagen.png" class="w-12 h-12 mb-2" alt="Agregar Foto">
+        <p class="text-center text-blue-900 font-medium">Agregar Imagen</p>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <div *ngFor="let photo of photoPreview; let i = index" class="relative w-64 h-64 border border-gray-400 rounded-md overflow-hidden">
+          <img [src]="photo" alt="Imagen subida" class="w-full h-full object-cover">
+          <button type="button" class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full" (click)="removeImage(i)">X</button>
+          <div *ngIf="i === 0" class="absolute bottom-2 left-2 bg-blue-900 text-white px-2 py-1 rounded">Principal</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="photo.length === 0 && formSubmitted" class="text-red-500 text-sm">Debe cargar al menos una imagen.</div>
+  </section>
+
+  <!-- Botones de acción -->
+  <div class="flex justify-between mt-8">
+    <button type="button" class="px-6 py-2 bg-black text-white font-semibold rounded-md hover:bg-gray-800">Cancelar</button>
+
+    <!-- Botón Enviar, deshabilitado si el formulario es inválido -->
+    <button
+      type="submit"
+      [disabled]="propertyForm.invalid || photo.length === 0"
+      [ngClass]="{
+      'bg-blue-900 text-white hover:bg-blue-700': propertyForm.valid && photo.length > 0,
+      'bg-gray-400 text-gray-200 cursor-not-allowed': propertyForm.invalid || photo.length === 0
+    }"
+      class="px-6 py-2 font-semibold rounded-md"
+    >
+      Enviar
+    </button>
+  </div>
+</form>

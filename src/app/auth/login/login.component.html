@@ -1,0 +1,72 @@
+<div class="container mx-auto flex flex-col-reverse md:flex-row items-center justify-center p-4">
+
+  <!-- Imagen del Login -->
+  <div class="imgLogin w-full md:w-1/2 flex justify-center p-4">
+    <img src="img/houses.png" alt="Casas Login" class="w-full h-auto object-cover rounded-lg shadow-lg">
+  </div>
+
+  <!-- Formulario de Login -->
+  <div class="FormLogin w-full md:w-1/2 flex flex-col items-center p-4">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+      <h1 class="text-2xl md:text-3xl font-bold text-center mb-6">Iniciar Sesión</h1>
+      <div class="space-y-4">
+        <div class="formOpc">
+          <label class="text-sm md:text-base">Correo:</label>
+          <input formControlName="correo" type="email" class="w-full p-2 border border-blue-500 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                 [ngClass]="{'border-red-500': loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched}">
+          <div *ngIf="loginForm.get('correo')?.touched">
+            <div *ngIf="loginForm.get('correo')?.hasError('required')" class="text-red-500 text-sm">
+              El correo es obligatorio.
+            </div>
+            <div *ngIf="loginForm.get('correo')?.hasError('invalidEmail')" class="text-red-500 text-sm">
+              El correo debe tener un "&#64;" y un dominio válido (como .com, .pe, etc.).
+            </div>
+          </div>
+        </div>
+        <div class="formOpc">
+          <label class="text-sm md:text-base">Contraseña:</label>
+          <input formControlName="contrasena" type="password" class="w-full p-2 border border-blue-500 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                 [ngClass]="{'border-red-500': loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched}">
+          <div *ngIf="loginForm.get('contrasena')?.touched">
+            <div *ngIf="loginForm.get('contrasena')?.hasError('required')" class="text-red-500 text-sm">
+              La contraseña es obligatoria.
+            </div>
+            <div *ngIf="loginForm.get('contrasena')?.hasError('invalidPassword')" class="text-red-500 text-sm">
+              La contraseña debe tener entre 8 y 16 caracteres, con al menos una mayúscula, una minúscula, un numero y un carácter especial permitido (&#64;, $, +, *, -, /, #, &, !, ¡, _, ?, ¿, °, |).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btns flex justify-between mt-6">
+        <button type="submit" class="bg-[#ffa300] text-black py-2 px-4 rounded-md w-2/5 text-sm md:text-base font-bold hover:bg-[#e59400] transition delay-200"
+                [disabled]="loginForm.invalid">
+          Iniciar Sesión
+        </button>
+
+        <button class="bg-[#012169] text-white py-2 px-4 rounded-md w-2/5 text-sm md:text-base font-bold hover:bg-blue-700 transition delay-200"
+                routerLink="/index">
+          Cancelar
+        </button>
+      </div>
+
+      <div class="deco flex items-center justify-center my-6 space-x-2">
+        <div class="line w-1/3 bg-black h-1"></div>
+        <div class="circle w-3 h-3 bg-black rounded-full"></div>
+        <div class="line w-1/3 bg-black h-1"></div>
+      </div>
+
+      <div class="extra flex justify-center">
+        <button class="bg-[#ffa300] text-black py-2 px-4 rounded-md w-1/2 text-sm md:text-base font-bold hover:bg-[#e59400] transition delay-200"
+                routerLink="/register">
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Alerta visual general -->
+<div *ngIf="errorMessage" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white py-2 px-4 rounded-md shadow-lg text-center z-50">
+  {{ errorMessage }}
+</div>

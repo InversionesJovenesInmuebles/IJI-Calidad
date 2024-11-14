@@ -1,0 +1,60 @@
+<div class="container mx-auto p-4">
+  <div class="header flex justify-between items-center py-5">
+    <h1 class="text-2xl font-bold">Gestionar Agentes Inmobiliarios</h1>
+    <a href="/addAgent" routerLink="/agregarAgente" class="bg-blue-900 text-orange-500 py-2 px-4 rounded-md flex items-center hover:bg-blue-700 transition">
+      <span class="mr-2">Agregar Agente 👨🏻‍💼</span>
+    </a>
+  </div>
+
+  <div *ngIf="alertMessage" class="alert bg-green-500 text-white px-4 py-2 rounded-md mb-4">
+    {{ alertMessage }}
+  </div>
+
+  <div class="agents-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="agent-card bg-white shadow-md rounded-lg text-center p-4" *ngFor="let agente of agentes">
+      <section>
+        <img src="img/Agente.png" alt="{{agente.nombre}} {{agente.apellido}}" class="agent-photo mx-auto mb-4 rounded-full border-2 border-black object-cover w-48 h-48">
+        <h2 class="text-lg font-semibold">{{agente.nombre}} {{agente.apellido}}</h2>
+        <p class="text-gray-700">✉️ {{agente.username}}</p>
+        <p class="text-gray-700">📞 {{agente.telefono}}</p>
+      </section>
+
+      <!-- Modal de Confirmación para Eliminar Agente -->
+      <div *ngIf="isModalOpen" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="modal-content bg-white rounded-lg p-6 max-w-md mx-auto relative">
+          <span class="close absolute top-2 right-4 text-gray-500 cursor-pointer text-2xl" (click)="closeModal()">&times;</span>
+          <h2 class="text-xl font-bold">Eliminar Agente</h2>
+          <p class="mt-4">¿Estás seguro que deseas eliminar a {{ agenteAEliminar?.nombre }} {{ agenteAEliminar?.apellido }}?</p>
+          <div class="button-container flex justify-between mt-6">
+            <button (click)="eliminarSi()" class="bg-blue-900 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">
+              <span>Sí</span>
+            </button>
+            <button (click)="eliminarNo()" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition">
+              <span>No</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal de Error al Intentar Eliminar Agente -->
+      <div *ngIf="isErrorModalOpen" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="modal-content bg-white rounded-lg p-6 max-w-md mx-auto relative">
+          <span class="close absolute top-2 right-4 text-gray-500 cursor-pointer text-2xl" (click)="closeErrorModal()">&times;</span>
+          <h2 class="text-xl font-bold">Error al Eliminar Agente</h2>
+          <p class="mt-4">{{ errorModalMessage }}</p>
+          <div class="button-container flex justify-center mt-6">
+            <button (click)="closeErrorModal()" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500 transition">
+              <span>Cerrar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de opciones -->
+      <div class="opciones flex w-full mt-4">
+        <button class="btnModificar bg-white text-blue-900 border-r border-t border-blue-900 w-1/2 py-2 rounded-l-md hover:bg-blue-900 hover:text-white transition" (click)="modificarAgente(agente.idAgente)">Modificar</button>
+        <button class="btnEliminar bg-white text-blue-900 border-l border-t border-blue-900 w-1/2 py-2 rounded-r-md hover:bg-blue-900 hover:text-white transition" (click)="openModal(agente)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

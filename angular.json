@@ -31,11 +31,6 @@
                 "input": "public"
               },
               {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets"
-              },
-              {
                 "glob": "_redirects",
                 "input": "src",
                 "output": "."
